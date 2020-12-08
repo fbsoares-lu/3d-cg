@@ -161,14 +161,30 @@ public class GLRenderer implements GLEventListener {
     }
 
     private void cubo(GL gl) {
+        gl.glTranslatef(translation, 0.0f, -6.0f);
+        gl.glRotatef(rotation, 1.0f, 1.0f, 0.0f);
+        gl.glBegin(GL.GL_LINES);
+        gl.glColor3f(1.0f, 0f, 0f);// eixo x
+        gl.glVertex3f(0, 0f, 0f);
+        gl.glVertex3f(3.0f, 0f, 0f);
+
+        gl.glColor3f(0f, 1f, 0f);//eixo y
+        gl.glVertex3f(0, 0f, 0f);
+        gl.glVertex3f(0, 2.025f, 0f);
+
+        gl.glColor3f(0f, 0f, 1f);//eixo z
+        gl.glVertex3f(0, 0f, 0f);
+        gl.glVertex3f(0, 0f, 3.5f);
+
+        gl.glEnd();
         if (SimpleGLCanvas.getTypeTransform() == 0) {
             translation -= -0.005f;
         }
-        gl.glTranslatef(translation, 0.0f, -6.0f);
+        //gl.glTranslatef(translation, 0.0f, -6.0f);
         if (SimpleGLCanvas.getTypeTransform() == 1) {
             rotation += 0.6f;
         }
-        gl.glRotatef(rotation, 1.0f, 1.0f, 1.0f);
+        //gl.glRotatef(rotation, 1.0f, 1.0f, 1.0f);
         gl.glBegin(GL.GL_QUADS);
         gl.glColor3f(0f, 0f, 1f); //Blue color  
         //Top Quadrilateral  

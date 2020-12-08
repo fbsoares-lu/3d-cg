@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 public class GLRenderer implements GLEventListener {
     
     private float rotation = 0.0f;
+    Dicionary d;
   
     public void init(GLAutoDrawable drawable) {
         // Use debug pipeline
@@ -46,57 +47,53 @@ public class GLRenderer implements GLEventListener {
 
     public void display(GLAutoDrawable drawable) {
         GL gl = drawable.getGL();
-        
-        gl.glClear( GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT );  
-        gl.glLoadIdentity();   
-        
-        if(d.equals(Dicionary.CUBO)) {
-            gl.glRotatef(rotation, 1.0f, 1.0f, 1.0f);   
-  
+        gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT );  
+        gl.glLoadIdentity();  
+        gl.glTranslatef( 0f, 0f, -2.0f );   
 
-            gl.glBegin(GL.GL_QUADS);   
-            gl.glColor3f(0f,0f,1f); //Blue color  
-                  //Top Quadrilateral  
-            gl.glVertex3f(0.5f, 0.5f, -0.5f); //Upper Right  
-            gl.glVertex3f( -0.5f, 0.5f, -0.5f); // Upper Left  
-            gl.glVertex3f( -0.5f, 0.5f, 0.5f ); // Bottom Left  
-            gl.glVertex3f( 0.5f, 0.5f, 0.5f ); // Bottom Right  
-                    //Below Quadrilateral  
-            gl.glColor3f( 1f,0f,0f ); //Red color  
-            gl.glVertex3f( 0.5f, -0.5f, 0.5f ); // Upper Right   
-            gl.glVertex3f( -0.5f, -0.5f, 0.5f ); // Upper Left   
-            gl.glVertex3f( -0.5f, -0.5f, -0.5f ); // Bottom Left   
-            gl.glVertex3f( 0.5f, -0.5f, -0.5f ); // Bottom Right   
-                  //Front Quadrilateral  
-            gl.glColor3f( 0f,1f,0f ); //Green color  
-            gl.glVertex3f( 0.5f, 0.5f, 0.5f ); // Upper Right   
-            gl.glVertex3f( -0.5f, 0.5f, 0.5f ); // Upper Left   
-            gl.glVertex3f( -0.5f, -0.5f, 0.5f ); // Bottom Left   
-            gl.glVertex3f( 0.5f, -0.5f, 0.5f ); // Bottom Right  
-                  //Back Quadrilateral  
-            gl.glColor3f( 1f,1f,0f ); //Yellow  
-            gl.glVertex3f( 0.5f, -0.5f, -0.5f ); // Bottom Left   
-            gl.glVertex3f( -0.5f, -0.5f, -0.5f ); // Bottom Right   
-            gl.glVertex3f( -0.5f, 0.5f, -0.5f ); // Upper Right   
-            gl.glVertex3f( 0.5f, 0.5f, -0.5f ); // Upper Left   
-                  //Left Quadrilateral  
-            gl.glColor3f( 1f,0f,1f ); //Purple  
-            gl.glVertex3f( -0.5f, 0.5f, 0.5f ); // Upper Right  
-            gl.glVertex3f( -0.5f, 0.5f, -0.5f ); // Upper Left   
-            gl.glVertex3f( -0.5f, -0.5f, -0.5f ); // Bottom Left   
-            gl.glVertex3f( -0.5f, -0.5f, 0.5f ); // Bottom Right   
-                  //Right Quadrilateral  
-            gl.glColor3f( 0f,1f, 1f ); //Cyan  
-            gl.glVertex3f( 0.5f, 0.5f, -0.5f ); // Upper Right   
-            gl.glVertex3f( 0.5f, 0.5f, 0.5f ); // Upper Left   
-            gl.glVertex3f( 0.5f, -0.5f, 0.5f ); // Bottom Left   
-            gl.glVertex3f( 0.5f, -0.5f, -0.5f ); // Bottom Right   
-            gl.glEnd();   
-            gl.glFlush();  
+        gl.glRotatef(rotation, 1.0f, 1.0f, 1.0f);   
 
-            rotation += 0.6f;  
-        }
-        
+        gl.glBegin(GL.GL_QUADS);   
+        gl.glColor3f(0f,0f,1f); //Blue color  
+              //Top Quadrilateral  
+        gl.glVertex3f(0.5f, 0.5f, -0.5f); //Upper Right  
+        gl.glVertex3f( -0.5f, 0.5f, -0.5f); // Upper Left  
+        gl.glVertex3f( -0.5f, 0.5f, 0.5f ); // Bottom Left  
+        gl.glVertex3f( 0.5f, 0.5f, 0.5f ); // Bottom Right  
+                //Below Quadrilateral  
+        gl.glColor3f( 1f,0f,0f ); //Red color  
+        gl.glVertex3f( 0.5f, -0.5f, 0.5f ); // Upper Right   
+        gl.glVertex3f( -0.5f, -0.5f, 0.5f ); // Upper Left   
+        gl.glVertex3f( -0.5f, -0.5f, -0.5f ); // Bottom Left   
+        gl.glVertex3f( 0.5f, -0.5f, -0.5f ); // Bottom Right   
+              //Front Quadrilateral  
+        gl.glColor3f( 0f,1f,0f ); //Green color  
+        gl.glVertex3f( 0.5f, 0.5f, 0.5f ); // Upper Right   
+        gl.glVertex3f( -0.5f, 0.5f, 0.5f ); // Upper Left   
+        gl.glVertex3f( -0.5f, -0.5f, 0.5f ); // Bottom Left   
+        gl.glVertex3f( 0.5f, -0.5f, 0.5f ); // Bottom Right  
+              //Back Quadrilateral  
+        gl.glColor3f( 1f,1f,0f ); //Yellow  
+        gl.glVertex3f( 0.5f, -0.5f, -0.5f ); // Bottom Left   
+        gl.glVertex3f( -0.5f, -0.5f, -0.5f ); // Bottom Right   
+        gl.glVertex3f( -0.5f, 0.5f, -0.5f ); // Upper Right   
+        gl.glVertex3f( 0.5f, 0.5f, -0.5f ); // Upper Left   
+              //Left Quadrilateral  
+        gl.glColor3f( 1f,0f,1f ); //Purple  
+        gl.glVertex3f( -0.5f, 0.5f, 0.5f ); // Upper Right  
+        gl.glVertex3f( -0.5f, 0.5f, -0.5f ); // Upper Left   
+        gl.glVertex3f( -0.5f, -0.5f, -0.5f ); // Bottom Left   
+        gl.glVertex3f( -0.5f, -0.5f, 0.5f ); // Bottom Right   
+              //Right Quadrilateral  
+        gl.glColor3f( 0f,1f, 1f ); //Cyan  
+        gl.glVertex3f( 0.5f, 0.5f, -0.5f ); // Upper Right   
+        gl.glVertex3f( 0.5f, 0.5f, 0.5f ); // Upper Left   
+        gl.glVertex3f( 0.5f, -0.5f, 0.5f ); // Bottom Left   
+        gl.glVertex3f( 0.5f, -0.5f, -0.5f ); // Bottom Right   
+        gl.glEnd();   
+        gl.glFlush();  
+
+        rotation += 0.6f;  
     }
 
     public void displayChanged(GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged) {

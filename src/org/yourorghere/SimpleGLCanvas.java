@@ -35,20 +35,23 @@ public class SimpleGLCanvas extends JFrame {
     }
     
     private Animator animator;
+    private static int typeForm = 0;
+    private static int typeTransform = -1;
 
     /** Creates new form MainFrame */
     public SimpleGLCanvas() {
         initComponents();
-        setTitle("Simple JOGL Application");
+        setTitle("3D-projeto");
 
         canvas.addGLEventListener(new GLRenderer());
         animator = new Animator(canvas);
+        animator.start();
 
         // This is a workaround for the GLCanvas not adjusting its size, when the frame is resized.
         canvas.setMinimumSize(new Dimension());  
         
         
-        this.addWindowListener(new WindowAdapter() {
+        addWindowListener(new WindowAdapter() {
 
             @Override
             public void windowClosing(WindowEvent e) {
@@ -57,6 +60,7 @@ public class SimpleGLCanvas extends JFrame {
                 // exiting
                 new Thread(new Runnable() {
 
+                    @Override
                     public void run() {
                         animator.stop();
                         System.exit(0);
@@ -186,24 +190,84 @@ public class SimpleGLCanvas extends JFrame {
         valueY = Float.parseFloat(textY.getText());
         valueZ = Float.parseFloat(textZ.getText());*/
         
+        if (piramideObj.isSelected() == true && cuboObj.isSelected() == true) {
+            // Criar piramide e cubo
+            typeForm = 5;
+        }
         
+        if(piramideObj.isSelected() == true && coneObj.isSelected() == true) {
+            // Criar piramide e cone
+            typeForm = 6;
+        }
+        
+        if(piramideObj.isSelected() == true && cilindroObj.isSelected() == true) {
+            // Criar piramide e cilindro
+            typeForm = 7;
+        }
+        
+        if(cuboObj.isSelected() == true && coneObj.isSelected() == true) {
+            // Criar cubo e cone
+            typeForm = 8;
+        }
+        
+        if(cuboObj.isSelected() == true && cilindroObj.isSelected() == true) {
+            // Criar cubo e cilindro
+            typeForm = 9;
+        }
+        
+        if(cilindroObj.isSelected() == true && coneObj.isSelected() == true) {
+            // criar Cilindro  e cone
+            typeForm = 10;
+        }
         
         if (piramideObj.isSelected() == true) {
             // criar piramide...
+            typeForm = 1;
+            if(rotacao.isSelected()) {
+                // ROTA플O
+                typeTransform = 1;
+            }else if (translacao.isSelected()) {
+                // TRANSLA플O
+                typeTransform = 0;
+            }
+
             System.out.println("o objeto foi "+ piramideObj.getText());
         }
         
         if (cuboObj.isSelected()) {
-            
+            typeForm = 2;
+            if(rotacao.isSelected()) {
+               // ROTA플O
+                typeTransform = 1;
+            }else if (translacao.isSelected()){
+                // TRANSLA플O
+                typeTransform = 0;
+            }
         }
         
         if (coneObj.isSelected()) {
             // criar piramide...
+            typeForm = 3;
+            if(rotacao.isSelected()) {
+                // ROTA플O
+                typeTransform = 1;
+            }else if (translacao.isSelected()){
+                // TRANSLA플O
+                typeTransform = 0;
+            }
             System.out.println("o objeto foi "+ coneObj.getText());
         }
         
         if (cilindroObj.isSelected()) {
             // criar piramide...
+            typeForm = 4;
+            if(rotacao.isSelected()) {
+                // ROTA플O
+                typeTransform = 1;
+            }else if (translacao.isSelected()){
+                // TRANSLA플O
+                typeTransform = 0;
+            }
             System.out.println("o objeto foi "+ cilindroObj.getText());
         }
         
@@ -248,6 +312,14 @@ public class SimpleGLCanvas extends JFrame {
                 
             }
         });
+    }
+    
+    public static int getTypeForm() {
+        return typeForm;
+    }
+    
+    public static int getTypeTransform() {
+        return typeTransform;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

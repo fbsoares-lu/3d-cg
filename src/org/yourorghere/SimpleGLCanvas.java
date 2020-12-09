@@ -488,6 +488,7 @@ public class SimpleGLCanvas extends JFrame {
     
     public static float getEixoZTranslacao() {
         return eixoZTranslacao;
+        //teste
     }
     
 

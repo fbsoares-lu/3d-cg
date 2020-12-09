@@ -16,6 +16,8 @@ public class GLRenderer implements GLEventListener {
     private float eixoXTranslacao = -0.5f;
     private float eixoYTranslacao = 0.0f;
     private float eixoZTranslacao = -6.0f;
+    
+    private float valuePerspective = 60.0f;
 
     @Override
     public void init(GLAutoDrawable drawable) {
@@ -45,10 +47,11 @@ public class GLRenderer implements GLEventListener {
         gl.glViewport(0, 0, width, height);
         gl.glMatrixMode(GL.GL_PROJECTION);
         gl.glLoadIdentity();
+        //valuePerspective = SimpleGLCanvas.getPerspective();
         
-        glu.gluPerspective(20.0f, 4.0/3.0, 1.0, 40);
+        glu.gluPerspective(60.0f, 4.0/3.0, 1.0, 40);
         
-//        glu.gluPerspective(45.0f, h, 1.0, 20.0);
+//      glu.gluPerspective(45.0f, h, 1.0, 20.0);
         gl.glMatrixMode(GL.GL_MODELVIEW);
         gl.glLoadIdentity();
         glu.gluLookAt(4, 6, 5, 0, 0, 0, 0, 1, 0);
@@ -104,7 +107,14 @@ public class GLRenderer implements GLEventListener {
                 System.out.println("CILINRO E CONE");
                 break;
             default:
+                nothing(gl);
+                break;
         }
+    }
+    
+    public void nothing(GL gl) {
+        gl.glEnd();
+        gl.glFlush();
     }
 
     private void iluminacao(GL gl) {
@@ -158,9 +168,9 @@ public class GLRenderer implements GLEventListener {
 //            translation -= -0.005f;
 //        }
         //gl.glTranslatef(translation, 0.0f, -6.0f);
-//        if (SimpleGLCanvas.getTypeTransform() == 1) {
-//            rotation += 0.6f;
-//        }
+        if (SimpleGLCanvas.getTypeTransform() == 1) {
+           rotation += 0.6f;
+        }
         //gl.glRotatef(rotation, 1.0f, 1.0f, 0.0f);
         gl.glBegin(GL.GL_TRIANGLES);
         // Front  
@@ -213,9 +223,9 @@ public class GLRenderer implements GLEventListener {
 //            translation -= -0.005f;
 //        }
         //gl.glTranslatef(translation, 0.0f, -6.0f);
-//        if (SimpleGLCanvas.getTypeTransform() == 1) {
-//            rotation += 0.6f;
-//        }
+        if (SimpleGLCanvas.getTypeTransform() == 1) {
+            rotation += 0.6f;
+        }
         //gl.glRotatef(rotation, 1.0f, 1.0f, 1.0f);
         gl.glBegin(GL.GL_QUADS);
 

@@ -40,6 +40,7 @@ public class SimpleGLCanvas extends JFrame {
     private static int typeTransform = -1;
     private static float eixoXRotacao = 0, eixoYRotacao = 0, eixoZRotacao = 0;
     private static float eixoXTranslacao = 0, eixoYTranslacao = 0, eixoZTranslacao = 0;
+    private static float valuePerspective = 0;
 
     /** Creates new form MainFrame */
     public SimpleGLCanvas() {
@@ -118,8 +119,8 @@ public class SimpleGLCanvas extends JFrame {
         giradorZTrans = new JSpinner();
         jSeparator2 = new JSeparator();
         jLabel8 = new JLabel();
-        jRadioButton2 = new JRadioButton();
-        jRadioButton3 = new JRadioButton();
+        buttonP = new JRadioButton();
+        giradorP = new JSpinner();
 
         jRadioButton1.setText("jRadioButton1");
 
@@ -164,9 +165,7 @@ public class SimpleGLCanvas extends JFrame {
 
         jLabel8.setText("Tipo projeção");
 
-        jRadioButton2.setText("Perspectiva");
-
-        jRadioButton3.setText("Ortogonal");
+        buttonP.setText("Perspectiva");
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -197,8 +196,8 @@ public class SimpleGLCanvas extends JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(1, 1, 1)
                                 .addGroup(layout.createParallelGroup(Alignment.LEADING)
-                                    .addComponent(jLabel8)
                                     .addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+                                        .addComponent(jLabel8)
                                         .addComponent(jToggleButton1, GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel6)
@@ -214,8 +213,9 @@ public class SimpleGLCanvas extends JFrame {
                                             .addComponent(giradorXTrans, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
                                         .addComponent(translacao)
                                         .addComponent(jSeparator2))
-                                    .addComponent(jRadioButton2)
-                                    .addComponent(jRadioButton3))))
+                                    .addGroup(layout.createParallelGroup(Alignment.TRAILING, false)
+                                        .addComponent(giradorP, Alignment.LEADING)
+                                        .addComponent(buttonP, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                         .addGap(45, 45, 45)
                         .addComponent(canvas, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(label))
@@ -277,12 +277,12 @@ public class SimpleGLCanvas extends JFrame {
                         .addPreferredGap(ComponentPlacement.RELATED)
                         .addComponent(jLabel8)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2)
+                        .addComponent(buttonP)
                         .addPreferredGap(ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton3)
+                        .addComponent(giradorP, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jToggleButton1)
-                        .addGap(40, 40, 40))))
+                        .addGap(44, 44, 44))))
         );
 
         pack();
@@ -293,6 +293,10 @@ public class SimpleGLCanvas extends JFrame {
         /*valueX = Float.parseFloat(textX.getText());
         valueY = Float.parseFloat(textY.getText());
         valueZ = Float.parseFloat(textZ.getText());*/
+        
+        if (buttonP.isSelected()) {
+            valuePerspective = Float.parseFloat(giradorP.getValue().toString());
+        }
         
         if (piramideObj.isSelected() == true && cuboObj.isSelected() == true) {
             // Criar piramide e cubo
@@ -491,12 +495,20 @@ public class SimpleGLCanvas extends JFrame {
         //teste
     }
     
+    // Valor para projeção
+    
+    public static float getPerspective() {
+        return valuePerspective;
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private JRadioButton buttonP;
     private GLCanvas canvas;
     private JRadioButton cilindroObj;
     private JRadioButton coneObj;
     private JRadioButton cuboObj;
+    private JSpinner giradorP;
     private JSpinner giradorXRotacao;
     private JSpinner giradorXTrans;
     private JSpinner giradorYRotacao;
@@ -512,8 +524,6 @@ public class SimpleGLCanvas extends JFrame {
     private JLabel jLabel7;
     private JLabel jLabel8;
     private JRadioButton jRadioButton1;
-    private JRadioButton jRadioButton2;
-    private JRadioButton jRadioButton3;
     private JSeparator jSeparator1;
     private JSeparator jSeparator2;
     private JToggleButton jToggleButton1;

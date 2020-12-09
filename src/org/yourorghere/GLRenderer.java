@@ -48,6 +48,7 @@ public class GLRenderer implements GLEventListener {
     public void display(GLAutoDrawable drawable) {
         GL gl = drawable.getGL();
         plano(gl);
+        iluminacao(gl);
         switch (SimpleGLCanvas.getTypeForm()) {
             case 1:
                 // piramide
@@ -95,6 +96,34 @@ public class GLRenderer implements GLEventListener {
             default:
         }
     }
+    
+    private void iluminacao(GL gl) {
+        
+        float ambient[] = {1.0f, 1.0f, 1.0f, 1.0f};
+        gl.glLightfv(GL.GL_LIGHT0, GL.GL_AMBIENT, ambient, 0);
+        
+        float diffuse[] = {0.8f, 0.8f, 0.8f, 1.0f};
+        gl.glLightfv(GL.GL_LIGHT0, GL.GL_DIFFUSE, diffuse, 0);
+        
+        float specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
+        gl.glLightfv(GL.GL_LIGHT0, GL.GL_SPECULAR, specular, 0);
+        
+        float position[] = {0.0f, 0.0f, 1.0f, 1.0f};
+        gl.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, position, 0);
+        
+        float matEspecular[] = {1.0f, 1.0f, 1.0f, 1.0f};
+        
+        gl.glMaterialfv(GL.GL_FRONT, GL.GL_SPECULAR, matEspecular, 0);
+        gl.glMaterialf(GL.GL_FRONT, GL.GL_SHININESS, 128);
+        
+        gl.glEnable( GL.GL_LIGHTING );    
+        gl.glEnable( GL.GL_LIGHT0);
+        // habilitar a coloração dos objetos
+        //gl.glEnable( GL.GL_COLOR_MATERIAL);
+        
+        //gl.glEnable(GL.GL_BLEND);
+        //gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
+    }
 
     private void plano(GL gl) {
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
@@ -113,23 +142,7 @@ public class GLRenderer implements GLEventListener {
     }
 
     private void piramide(GL gl) {
-        gl.glTranslatef(translation, 0.0f, -6.0f);
-        gl.glRotatef(rotation, 1.0f, 1.0f, 0.0f);
-        gl.glBegin(GL.GL_LINES);
-        gl.glColor3f(1.0f, 0f, 0f);// eixo x
-        gl.glVertex3f(0, 0f, 0f);
-        gl.glVertex3f(3.0f, 0f, 0f);
-
-        gl.glColor3f(0f, 1f, 0f);//eixo y
-        gl.glVertex3f(0, 0f, 0f);
-        gl.glVertex3f(0, 2.025f, 0f);
-
-        gl.glColor3f(0f, 0f, 1f);//eixo z
-        gl.glVertex3f(0, 0f, 0f);
-        gl.glVertex3f(0, 0f, 3.5f);
-
-        gl.glEnd();
-        gl.glFlush();
+        lines(gl);
         
         if (SimpleGLCanvas.getTypeTransform() == 0) {
             translation -= -0.005f;
@@ -142,65 +155,50 @@ public class GLRenderer implements GLEventListener {
         gl.glBegin(GL.GL_TRIANGLES);
         // Front  
         gl.glColor3f(1.0f, 1.0f, 0.0f); // Yellow  
-        gl.glVertex3f(1.5f, 2f, 0.0f); // Top Of Triangle   
+        gl.glVertex3f(1.0f, 1.0f, 1.0f); // Top Of Triangle   
 
         gl.glColor3f(0.0f, 1.5f, 0.0f); // Green  
-        gl.glVertex3f(-1.5f, -1.5f, 1.5f); // Left Of Triangle   
+        gl.glVertex3f(-1.0f, -1.0f, 1.0f); // Left Of Triangle   
 
         gl.glColor3f(1.0f, 0.0f, 1.0f); // Purple  
-        gl.glVertex3f(1.5f, -1.5f, 1.5f); // Right Of Triangle   
+        gl.glVertex3f(1.0f, -1.0f, 1.0f); // Right Of Triangle   
 
         // Right  
         gl.glColor3f(1.0f, 1.0f, 0.0f); // Yellow  
-        gl.glVertex3f(1.5f, 2.0f, 0.0f); // Top Of Triangle   
+        gl.glVertex3f(1.0f, 1.0f, 1.0f); // Top Of Triangle   
 
         gl.glColor3f(1.0f, 0.0f, 1.0f); // Purple  
-        gl.glVertex3f(1.5f, -1.5f, 1.5f); // Left Of Triangle   
+        gl.glVertex3f(1.0f, -1.0f, 1.0f); // Left Of Triangle   
 
         gl.glColor3f(0.0f, 1.0f, 0.0f); // Green  
-        gl.glVertex3f(1.5f, -1.5f, -1.5f); // Right Of Triangle   
+        gl.glVertex3f(1.0f, -1.0f, -1.0f); // Right Of Triangle   
 
         // Back  
         gl.glColor3f(1.0f, 1.0f, 0.0f); // Yellow  
-        gl.glVertex3f(1.5f, 2.0f, 0.0f); // Top Of Triangle   
+        gl.glVertex3f(1.0f, 1.0f, 1.0f); // Top Of Triangle   
 
         gl.glColor3f(0.0f, 1.0f, 0.0f); // Green  
-        gl.glVertex3f(1.5f, -1.5f, -1.5f); // Left Of Triangle   
+        gl.glVertex3f(1.0f, -1.0f, -1.0f); // Left Of Triangle   
 
         gl.glColor3f(1.0f, 0.0f, 1.0f); // Purple  
-        gl.glVertex3f(-1.5f, -1.5f, -1.5f); // Right Of Triangle   
+        gl.glVertex3f(-1.0f, -1.0f, -1.0f); // Right Of Triangle   
 
         //left  
         gl.glColor3f(1.0f, 1.0f, 0.0f); // Yellow  
-        gl.glVertex3f(1.5f, 2.0f, 0.0f); // Top Of Triangle   
+        gl.glVertex3f(1.0f, 1.0f, 1.0f); // Top Of Triangle   
 
         gl.glColor3f(1.0f, 0.0f, 1.0f); // Purple  
-        gl.glVertex3f(-1.5f, -1.5f, -1.5f); // Left Of Triangle   
+        gl.glVertex3f(-1.0f, -1.0f, -1.0f); // Left Of Triangle   
 
         gl.glColor3f(0.0f, 1.0f, 0.0f); // Green  
-        gl.glVertex3f(-1.5f, -1.5f, 1.5f); // Right Of Triangle   
+        gl.glVertex3f(-1.0f, -1.0f, 1.0f); // Right Of Triangle   
 
         gl.glEnd();
         gl.glFlush();
     }
 
     private void cubo(GL gl) {
-        gl.glTranslatef(translation, 0.0f, -6.0f);
-        gl.glRotatef(rotation, 1.0f, 1.0f, 0.0f);
-        gl.glBegin(GL.GL_LINES);
-        gl.glColor3f(1.0f, 0f, 0f);// eixo x
-        gl.glVertex3f(0, 0f, 0f);
-        gl.glVertex3f(3.0f, 0f, 0f);
-
-        gl.glColor3f(0f, 1f, 0f);//eixo y
-        gl.glVertex3f(0, 0f, 0f);
-        gl.glVertex3f(0, 2.025f, 0f);
-
-        gl.glColor3f(0f, 0f, 1f);//eixo z
-        gl.glVertex3f(0, 0f, 0f);
-        gl.glVertex3f(0, 0f, 3.5f);
-
-        gl.glEnd();
+        lines(gl);
         if (SimpleGLCanvas.getTypeTransform() == 0) {
             translation -= -0.005f;
         }
@@ -210,38 +208,45 @@ public class GLRenderer implements GLEventListener {
         }
         //gl.glRotatef(rotation, 1.0f, 1.0f, 1.0f);
         gl.glBegin(GL.GL_QUADS);
-        gl.glColor3f(0f, 0f, 1f); //Blue color  
+        
+        gl.glColor3f(0f, 0f, 1f); //Blue color
+        //gl.glColor4f(0.0f, 0.0f, 1.0f, 1.0f); //Transparent    
         //Top Quadrilateral  
         gl.glVertex3f(0.5f, 0.5f, -0.5f); //Upper Right  
         gl.glVertex3f(-0.5f, 0.5f, -0.5f); // Upper Left  
         gl.glVertex3f(-0.5f, 0.5f, 0.5f); // Bottom Left  
         gl.glVertex3f(0.5f, 0.5f, 0.5f); // Bottom Right  
         //Below Quadrilateral  
-        gl.glColor3f(1f, 0f, 0f); //Red color  
+        gl.glColor3f(1f, 0f, 0f); //Red color
+        //gl.glColor4f(0.0f, 0.0f, 1.0f, 1.0f); //Transparent       
         gl.glVertex3f(0.5f, -0.5f, 0.5f); // Upper Right   
         gl.glVertex3f(-0.5f, -0.5f, 0.5f); // Upper Left   
         gl.glVertex3f(-0.5f, -0.5f, -0.5f); // Bottom Left   
         gl.glVertex3f(0.5f, -0.5f, -0.5f); // Bottom Right   
         //Front Quadrilateral  
-        gl.glColor3f(0f, 1f, 0f); //Green color  
+        gl.glColor3f(0f, 1f, 0f); //Green color
+        //gl.glColor4f(0.0f, 0.0f, 1.0f, 1.0f); //Transparent    
         gl.glVertex3f(0.5f, 0.5f, 0.5f); // Upper Right   
         gl.glVertex3f(-0.5f, 0.5f, 0.5f); // Upper Left   
         gl.glVertex3f(-0.5f, -0.5f, 0.5f); // Bottom Left   
         gl.glVertex3f(0.5f, -0.5f, 0.5f); // Bottom Right  
         //Back Quadrilateral  
-        gl.glColor3f(1f, 1f, 0f); //Yellow  
+        gl.glColor3f(1f, 1f, 0f); //Yellow 
+        //gl.glColor4f(0.0f, 0.0f, 1.0f, 1.0f); //Transparent     
         gl.glVertex3f(0.5f, -0.5f, -0.5f); // Bottom Left   
         gl.glVertex3f(-0.5f, -0.5f, -0.5f); // Bottom Right   
         gl.glVertex3f(-0.5f, 0.5f, -0.5f); // Upper Right   
         gl.glVertex3f(0.5f, 0.5f, -0.5f); // Upper Left   
         //Left Quadrilateral  
         gl.glColor3f(1f, 0f, 1f); //Purple  
+        //gl.glColor4f(0.0f, 0.0f, 1.0f, 1.0f); //Transparent       
         gl.glVertex3f(-0.5f, 0.5f, 0.5f); // Upper Right  
         gl.glVertex3f(-0.5f, 0.5f, -0.5f); // Upper Left   
         gl.glVertex3f(-0.5f, -0.5f, -0.5f); // Bottom Left   
         gl.glVertex3f(-0.5f, -0.5f, 0.5f); // Bottom Right   
         //Right Quadrilateral  
         gl.glColor3f(0f, 1f, 1f); //Cyan  
+        //gl.glColor4f(0.0f, 0.0f, 1.0f, 1.0f); //Transparent     
         gl.glVertex3f(0.5f, 0.5f, -0.5f); // Upper Right   
         gl.glVertex3f(0.5f, 0.5f, 0.5f); // Upper Left   
         gl.glVertex3f(0.5f, -0.5f, 0.5f); // Bottom Left   
@@ -256,6 +261,25 @@ public class GLRenderer implements GLEventListener {
     
     private void conde() {
         
+    }
+    
+    private void lines(GL gl) {
+        gl.glTranslatef(translation, 0.0f, -6.0f);
+        gl.glRotatef(rotation, 1.0f, 1.0f, 0.0f);
+        gl.glBegin(GL.GL_LINES);
+        gl.glColor3f(1.0f, 0f, 0f);// eixo x
+        gl.glVertex3f(0, 0f, 0f);
+        gl.glVertex3f(3.0f, 0f, 0f);
+
+        gl.glColor3f(0f, 1f, 0f);//eixo y
+        gl.glVertex3f(0, 0f, 0f);
+        gl.glVertex3f(0, 2.025f, 0f);
+
+        gl.glColor3f(0f, 0f, 1f);//eixo z
+        gl.glVertex3f(0, 0f, 0f);
+        gl.glVertex3f(0, 0f, 3.5f);
+
+        gl.glEnd();
     }
   
     @Override

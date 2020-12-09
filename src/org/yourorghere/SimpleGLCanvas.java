@@ -175,7 +175,7 @@ public class SimpleGLCanvas extends JFrame {
                         .addComponent(rotacao)
                         .addPreferredGap(ComponentPlacement.RELATED)
                         .addComponent(translacao)
-                        .addGap(163, 163, 163)
+                        .addGap(18, 18, 18)
                         .addComponent(jToggleButton1)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())

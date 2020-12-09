@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPopupMenu;
 import javax.swing.JRadioButton;
 import javax.swing.JSeparator;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -37,6 +38,8 @@ public class SimpleGLCanvas extends JFrame {
     private Animator animator;
     private static int typeForm = 0;
     private static int typeTransform = -1;
+    private static float eixoXRotacao = 0, eixoYRotacao = 0, eixoZRotacao = 0;
+    private static float eixoXTranslacao = 0, eixoYTranslacao = 0, eixoZTranslacao = 0;
 
     /** Creates new form MainFrame */
     public SimpleGLCanvas() {
@@ -100,6 +103,23 @@ public class SimpleGLCanvas extends JFrame {
         labelTransf = new JLabel();
         rotacao = new JRadioButton();
         translacao = new JRadioButton();
+        jLabel2 = new JLabel();
+        giradorXRotacao = new JSpinner();
+        jLabel3 = new JLabel();
+        giradorYRotacao = new JSpinner();
+        jLabel4 = new JLabel();
+        giradorZRotacao = new JSpinner();
+        jLabel5 = new JLabel();
+        jLabel6 = new JLabel();
+        jLabel7 = new JLabel();
+        jSeparator1 = new JSeparator();
+        giradorXTrans = new JSpinner();
+        giradorYTrans = new JSpinner();
+        giradorZTrans = new JSpinner();
+        jSeparator2 = new JSeparator();
+        jLabel8 = new JLabel();
+        jRadioButton2 = new JRadioButton();
+        jRadioButton3 = new JRadioButton();
 
         jRadioButton1.setText("jRadioButton1");
 
@@ -130,6 +150,24 @@ public class SimpleGLCanvas extends JFrame {
 
         translacao.setText("Translação");
 
+        jLabel2.setText("Eixo X");
+
+        jLabel3.setText("Eixo Y");
+
+        jLabel4.setText("Eixo Z");
+
+        jLabel5.setText("Eixo X");
+
+        jLabel6.setText("Eixo Y");
+
+        jLabel7.setText("Eixo Z");
+
+        jLabel8.setText("Tipo projeção");
+
+        jRadioButton2.setText("Perspectiva");
+
+        jRadioButton3.setText("Ortogonal");
+
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING)
@@ -137,17 +175,48 @@ public class SimpleGLCanvas extends JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(Alignment.LEADING)
-                            .addComponent(jToggleButton1, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
+                        .addGroup(layout.createParallelGroup(Alignment.LEADING, false)
                             .addComponent(piramideObj)
                             .addComponent(cuboObj)
                             .addComponent(coneObj)
                             .addComponent(cilindroObj)
                             .addComponent(labelTransf)
                             .addComponent(rotacao)
-                            .addComponent(translacao))
-                        .addGap(46, 46, 46)
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel4))
+                                .addPreferredGap(ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+                                    .addComponent(giradorXRotacao, GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                                    .addComponent(giradorYRotacao)
+                                    .addComponent(giradorZRotacao)))
+                            .addComponent(jSeparator1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addGroup(layout.createParallelGroup(Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+                                        .addComponent(jToggleButton1, GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel6)
+                                            .addPreferredGap(ComponentPlacement.RELATED)
+                                            .addComponent(giradorYTrans, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel7)
+                                            .addPreferredGap(ComponentPlacement.RELATED)
+                                            .addComponent(giradorZTrans, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel5)
+                                            .addPreferredGap(ComponentPlacement.RELATED)
+                                            .addComponent(giradorXTrans, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(translacao)
+                                        .addComponent(jSeparator2))
+                                    .addComponent(jRadioButton2)
+                                    .addComponent(jRadioButton3))))
+                        .addGap(45, 45, 45)
                         .addComponent(canvas, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(label))
                 .addContainerGap())
@@ -158,7 +227,9 @@ public class SimpleGLCanvas extends JFrame {
                 .addComponent(label)
                 .addPreferredGap(ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(Alignment.LEADING)
-                    .addComponent(canvas, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(canvas, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(ComponentPlacement.UNRELATED)
@@ -169,16 +240,49 @@ public class SimpleGLCanvas extends JFrame {
                         .addComponent(coneObj)
                         .addPreferredGap(ComponentPlacement.RELATED)
                         .addComponent(cilindroObj)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(ComponentPlacement.UNRELATED)
+                        .addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
                         .addComponent(labelTransf)
                         .addPreferredGap(ComponentPlacement.UNRELATED)
                         .addComponent(rotacao)
+                        .addPreferredGap(ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(giradorXRotacao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(Alignment.BASELINE)
+                            .addComponent(giradorYRotacao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(giradorZRotacao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35)
                         .addComponent(translacao)
                         .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(giradorXTrans, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(giradorYTrans, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(giradorZTrans, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jSeparator2, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(ComponentPlacement.RELATED)
+                        .addComponent(jLabel8)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButton2)
+                        .addPreferredGap(ComponentPlacement.RELATED)
+                        .addComponent(jRadioButton3)
+                        .addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jToggleButton1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(40, 40, 40))))
         );
 
         pack();
@@ -192,12 +296,19 @@ public class SimpleGLCanvas extends JFrame {
         
         if (piramideObj.isSelected() == true && cuboObj.isSelected() == true) {
             // Criar piramide e cubo
+            
             typeForm = 5;
             if(rotacao.isSelected()) {
-               // ROTAÇÃO
+                eixoXRotacao = Float.parseFloat(giradorXRotacao.getValue().toString());
+                eixoYRotacao = Float.parseFloat(giradorYRotacao.getValue().toString());
+                eixoZRotacao = Float.parseFloat(giradorZRotacao.getValue().toString());
+                
                 typeTransform = 1;
             }else if (translacao.isSelected()){
                 // TRANSLAÇÃO
+                eixoXTranslacao = Float.parseFloat(giradorXTrans.getValue().toString());
+                eixoYTranslacao = Float.parseFloat(giradorYTrans.getValue().toString());
+                eixoZTranslacao = Float.parseFloat(giradorZTrans.getValue().toString());
                 typeTransform = 0;
             }
             System.out.println("Pirâmide e CUBO");
@@ -231,12 +342,27 @@ public class SimpleGLCanvas extends JFrame {
         else if (piramideObj.isSelected() == true) {
             // criar piramide...
             typeForm = 1;
-            if(rotacao.isSelected()) {
-                // ROTAÇÃO
+            if(rotacao.isSelected() == true && translacao.isSelected()) {
+                eixoXRotacao = Float.parseFloat(giradorXRotacao.getValue().toString());
+                eixoYRotacao = Float.parseFloat(giradorYRotacao.getValue().toString());
+                eixoZRotacao = Float.parseFloat(giradorZRotacao.getValue().toString());
+                eixoXTranslacao = Float.parseFloat(giradorXTrans.getValue().toString());
+                eixoYTranslacao = Float.parseFloat(giradorYTrans.getValue().toString());
+                eixoZTranslacao = Float.parseFloat(giradorZTrans.getValue().toString());
+                
                 typeTransform = 1;
             }else if (translacao.isSelected()) {
                 // TRANSLAÇÃO
+                eixoXTranslacao = Float.parseFloat(giradorXTrans.getValue().toString());
+                eixoYTranslacao = Float.parseFloat(giradorYTrans.getValue().toString());
+                eixoZTranslacao = Float.parseFloat(giradorZTrans.getValue().toString());
                 typeTransform = 0;
+            } else if (rotacao.isSelected()) {
+                eixoXRotacao = Float.parseFloat(giradorXRotacao.getValue().toString());
+                eixoYRotacao = Float.parseFloat(giradorYRotacao.getValue().toString());
+                eixoZRotacao = Float.parseFloat(giradorZRotacao.getValue().toString());
+                
+                typeTransform = 1;
             }
 
             System.out.println("o objeto foi "+ piramideObj.getText());
@@ -245,10 +371,16 @@ public class SimpleGLCanvas extends JFrame {
         else if (cuboObj.isSelected()) {
             typeForm = 2;
             if(rotacao.isSelected()) {
-               // ROTAÇÃO
+                eixoXRotacao = Float.parseFloat(giradorXRotacao.getValue().toString());
+                eixoYRotacao = Float.parseFloat(giradorYRotacao.getValue().toString());
+                eixoZRotacao = Float.parseFloat(giradorZRotacao.getValue().toString());
+                
                 typeTransform = 1;
             }else if (translacao.isSelected()){
                 // TRANSLAÇÃO
+                eixoXTranslacao = Float.parseFloat(giradorXTrans.getValue().toString());
+                eixoYTranslacao = Float.parseFloat(giradorYTrans.getValue().toString());
+                eixoZTranslacao = Float.parseFloat(giradorZTrans.getValue().toString());
                 typeTransform = 0;
             }
         }
@@ -329,14 +461,60 @@ public class SimpleGLCanvas extends JFrame {
     public static int getTypeTransform() {
         return typeTransform;
     }
+    
+    // Eixos para Rotação
+    
+    public static float getEixoXRotacao() {
+        return eixoXRotacao;
+    } 
+    
+    public static float getEixoYRotacao() {
+        return eixoYRotacao;
+    }
+    
+    public static float getEixoZRotacao() {
+        return eixoZRotacao;
+    }
+    
+    // Eixos para Translação
+    
+    public static float getEixoXTranslacao() {
+        return eixoXTranslacao;
+    }
+    
+    public static float getEixoYTranslacao() {
+        return eixoYTranslacao;
+    }
+    
+    public static float getEixoZTranslacao() {
+        return eixoZTranslacao;
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private GLCanvas canvas;
     private JRadioButton cilindroObj;
     private JRadioButton coneObj;
     private JRadioButton cuboObj;
+    private JSpinner giradorXRotacao;
+    private JSpinner giradorXTrans;
+    private JSpinner giradorYRotacao;
+    private JSpinner giradorYTrans;
+    private JSpinner giradorZRotacao;
+    private JSpinner giradorZTrans;
     private JLabel jLabel1;
+    private JLabel jLabel2;
+    private JLabel jLabel3;
+    private JLabel jLabel4;
+    private JLabel jLabel5;
+    private JLabel jLabel6;
+    private JLabel jLabel7;
+    private JLabel jLabel8;
     private JRadioButton jRadioButton1;
+    private JRadioButton jRadioButton2;
+    private JRadioButton jRadioButton3;
+    private JSeparator jSeparator1;
+    private JSeparator jSeparator2;
     private JToggleButton jToggleButton1;
     private JLabel labelTransf;
     private JRadioButton piramideObj;

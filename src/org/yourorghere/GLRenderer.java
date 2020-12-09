@@ -9,6 +9,13 @@ public class GLRenderer implements GLEventListener {
 
     private float rotation = 0.6f;
     private float translation = -0.5f;
+    private float eixoXRotacao = -0.5f;
+    private float eixoYRotacao = 0.0f;
+    private float eixoZRotacao = -6.0f;
+
+    private float eixoXTranslacao = -0.5f;
+    private float eixoYTranslacao = 0.0f;
+    private float eixoZTranslacao = -6.0f;
 
     @Override
     public void init(GLAutoDrawable drawable) {
@@ -38,10 +45,13 @@ public class GLRenderer implements GLEventListener {
         gl.glViewport(0, 0, width, height);
         gl.glMatrixMode(GL.GL_PROJECTION);
         gl.glLoadIdentity();
-
-        glu.gluPerspective(45.0f, h, 1.0, 20.0);
+        
+        glu.gluPerspective(20.0f, 4.0/3.0, 1.0, 40);
+        
+//        glu.gluPerspective(45.0f, h, 1.0, 20.0);
         gl.glMatrixMode(GL.GL_MODELVIEW);
         gl.glLoadIdentity();
+        glu.gluLookAt(4, 6, 5, 0, 0, 0, 0, 1, 0);
     }
 
     @Override
@@ -52,7 +62,7 @@ public class GLRenderer implements GLEventListener {
         switch (SimpleGLCanvas.getTypeForm()) {
             case 1:
                 // piramide
-                plano(gl);  
+                plano(gl);
                 piramide(gl);
                 break;
             case 2:
@@ -96,31 +106,31 @@ public class GLRenderer implements GLEventListener {
             default:
         }
     }
-    
+
     private void iluminacao(GL gl) {
-        
+
         float ambient[] = {1.0f, 1.0f, 1.0f, 1.0f};
         gl.glLightfv(GL.GL_LIGHT0, GL.GL_AMBIENT, ambient, 0);
-        
+
         float diffuse[] = {0.8f, 0.8f, 0.8f, 1.0f};
         gl.glLightfv(GL.GL_LIGHT0, GL.GL_DIFFUSE, diffuse, 0);
-        
+
         float specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
         gl.glLightfv(GL.GL_LIGHT0, GL.GL_SPECULAR, specular, 0);
-        
+
         float position[] = {0.0f, 0.0f, 1.0f, 1.0f};
         gl.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, position, 0);
-        
+
         float matEspecular[] = {1.0f, 1.0f, 1.0f, 1.0f};
-        
+
         gl.glMaterialfv(GL.GL_FRONT, GL.GL_SPECULAR, matEspecular, 0);
         gl.glMaterialf(GL.GL_FRONT, GL.GL_SHININESS, 128);
-        
-        gl.glEnable( GL.GL_LIGHTING );    
-        gl.glEnable( GL.GL_LIGHT0);
+
+        gl.glEnable(GL.GL_LIGHTING);
+        gl.glEnable(GL.GL_LIGHT0);
         // habilitar a coloração dos objetos
-        //gl.glEnable( GL.GL_COLOR_MATERIAL);
-        
+        gl.glEnable(GL.GL_COLOR_MATERIAL);
+
         //gl.glEnable(GL.GL_BLEND);
         //gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
     }
@@ -143,14 +153,14 @@ public class GLRenderer implements GLEventListener {
 
     private void piramide(GL gl) {
         lines(gl);
-        
-        if (SimpleGLCanvas.getTypeTransform() == 0) {
-            translation -= -0.005f;
-        }
+
+//        if (SimpleGLCanvas.getTypeTransform() == 0) {
+//            translation -= -0.005f;
+//        }
         //gl.glTranslatef(translation, 0.0f, -6.0f);
-        if (SimpleGLCanvas.getTypeTransform() == 1) {
-            rotation += 0.6f;
-        }
+//        if (SimpleGLCanvas.getTypeTransform() == 1) {
+//            rotation += 0.6f;
+//        }
         //gl.glRotatef(rotation, 1.0f, 1.0f, 0.0f);
         gl.glBegin(GL.GL_TRIANGLES);
         // Front  
@@ -199,16 +209,16 @@ public class GLRenderer implements GLEventListener {
 
     private void cubo(GL gl) {
         lines(gl);
-        if (SimpleGLCanvas.getTypeTransform() == 0) {
-            translation -= -0.005f;
-        }
+//        if (SimpleGLCanvas.getTypeTransform() == 0) {
+//            translation -= -0.005f;
+//        }
         //gl.glTranslatef(translation, 0.0f, -6.0f);
-        if (SimpleGLCanvas.getTypeTransform() == 1) {
-            rotation += 0.6f;
-        }
+//        if (SimpleGLCanvas.getTypeTransform() == 1) {
+//            rotation += 0.6f;
+//        }
         //gl.glRotatef(rotation, 1.0f, 1.0f, 1.0f);
         gl.glBegin(GL.GL_QUADS);
-        
+
         gl.glColor3f(0f, 0f, 1f); //Blue color
         //gl.glColor4f(0.0f, 0.0f, 1.0f, 1.0f); //Transparent    
         //Top Quadrilateral  
@@ -254,18 +264,29 @@ public class GLRenderer implements GLEventListener {
         gl.glEnd();
         gl.glFlush();
     }
-    
+
     private void cilindro() {
-        
+
     }
-    
+
     private void conde() {
-        
+
     }
-    
+
     private void lines(GL gl) {
-        gl.glTranslatef(translation, 0.0f, -6.0f);
-        gl.glRotatef(rotation, 1.0f, 1.0f, 0.0f);
+
+        translation = SimpleGLCanvas.getEixoXRotacao();
+        eixoXRotacao = SimpleGLCanvas.getEixoXRotacao();
+        eixoYRotacao = SimpleGLCanvas.getEixoYRotacao();
+        eixoZRotacao = SimpleGLCanvas.getEixoZRotacao();
+        
+        eixoXTranslacao = SimpleGLCanvas.getEixoXTranslacao();
+        eixoYTranslacao = SimpleGLCanvas.getEixoYTranslacao();
+        eixoZTranslacao = SimpleGLCanvas.getEixoZTranslacao();
+
+        gl.glTranslatef(eixoXTranslacao, eixoYTranslacao, eixoZTranslacao);
+        gl.glRotatef(rotation, eixoXRotacao, eixoYRotacao, eixoZRotacao);
+        System.out.println("eixo x rotacao = " + eixoXRotacao);
         gl.glBegin(GL.GL_LINES);
         gl.glColor3f(1.0f, 0f, 0f);// eixo x
         gl.glVertex3f(0, 0f, 0f);
@@ -281,7 +302,7 @@ public class GLRenderer implements GLEventListener {
 
         gl.glEnd();
     }
-  
+
     @Override
     public void displayChanged(GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged) {
     }

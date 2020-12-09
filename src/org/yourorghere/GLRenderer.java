@@ -19,7 +19,7 @@ public class GLRenderer implements GLEventListener {
     
     private float valuePerspective = 60.0f;
 
-    @Override
+    
     public void init(GLAutoDrawable drawable) {
         // Use debug pipeline
         // drawable.setGL(new DebugGL(drawable.getGL()));
@@ -35,7 +35,7 @@ public class GLRenderer implements GLEventListener {
         gl.glShadeModel(GL.GL_SMOOTH); // try setting this to GL_FLAT and see what happens.
     }
 
-    @Override
+    
     public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
         GL gl = drawable.getGL();
         GLU glu = new GLU();
@@ -57,7 +57,7 @@ public class GLRenderer implements GLEventListener {
         glu.gluLookAt(4, 6, 5, 0, 0, 0, 0, 1, 0);
     }
 
-    @Override
+ 
     public void display(GLAutoDrawable drawable) {
         GL gl = drawable.getGL();
         plano(gl);
@@ -168,7 +168,10 @@ public class GLRenderer implements GLEventListener {
 //            translation -= -0.005f;
 //        }
         //gl.glTranslatef(translation, 0.0f, -6.0f);
-        if (SimpleGLCanvas.getTypeTransform() == 1) {
+        if(SimpleGLCanvas.getTypeTransform() == 2){
+            rotation += 0.6f;
+        }
+        else if (SimpleGLCanvas.getTypeTransform() == 1) {
            rotation += 0.6f;
         }
         //gl.glRotatef(rotation, 1.0f, 1.0f, 0.0f);
@@ -223,7 +226,10 @@ public class GLRenderer implements GLEventListener {
 //            translation -= -0.005f;
 //        }
         //gl.glTranslatef(translation, 0.0f, -6.0f);
-        if (SimpleGLCanvas.getTypeTransform() == 1) {
+        if(SimpleGLCanvas.getTypeTransform() == 2){
+            rotation += 0.6f;
+        }
+        else if (SimpleGLCanvas.getTypeTransform() == 1) {
             rotation += 0.6f;
         }
         //gl.glRotatef(rotation, 1.0f, 1.0f, 1.0f);
@@ -313,7 +319,7 @@ public class GLRenderer implements GLEventListener {
         gl.glEnd();
     }
 
-    @Override
+    
     public void displayChanged(GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged) {
     }
 }

@@ -302,7 +302,13 @@ public class SimpleGLCanvas extends JFrame {
             // Criar piramide e cubo
             
             typeForm = 5;
-            if(rotacao.isSelected()) {
+            if(rotacao.isSelected() == true && translacao.isSelected() == true){
+                eixoXRotacao = Float.parseFloat(giradorXRotacao.getValue().toString());
+                eixoYRotacao = Float.parseFloat(giradorYRotacao.getValue().toString());
+                eixoZRotacao = Float.parseFloat(giradorZRotacao.getValue().toString());
+                typeTransform = 2;
+            }
+            else if(rotacao.isSelected()) {
                 eixoXRotacao = Float.parseFloat(giradorXRotacao.getValue().toString());
                 eixoYRotacao = Float.parseFloat(giradorYRotacao.getValue().toString());
                 eixoZRotacao = Float.parseFloat(giradorZRotacao.getValue().toString());

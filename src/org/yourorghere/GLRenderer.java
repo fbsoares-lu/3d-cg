@@ -69,6 +69,29 @@ public class GLRenderer implements GLEventListener {
                 plano(gl);
                 System.out.println("CILINDRO GERADO!");
                 break;
+            case 5:
+                // piramide e cubo
+                //System.out.println("PIRAMIDE E CUBO");
+                piramide(gl);
+                cubo(gl);
+                break;
+            case 6:
+                // piramide e cone
+                System.out.println("PIRAMIDE E CONE");
+                break;
+            case 7:
+                // piramide e cilindro
+                System.out.println("PIRAMIDE E CILINDRO");
+                break;
+            case 8:
+                System.out.println("CUBO E CONE");
+                break;
+            case 9:
+                System.out.println("CUBO E CILINDRO");
+                break;
+            case 10:
+                System.out.println("CILINRO E CONE");
+                break;
             default:
         }
     }
@@ -106,6 +129,7 @@ public class GLRenderer implements GLEventListener {
         gl.glVertex3f(0, 0f, 3.5f);
 
         gl.glEnd();
+        gl.glFlush();
         
         if (SimpleGLCanvas.getTypeTransform() == 0) {
             translation -= -0.005f;
@@ -224,6 +248,14 @@ public class GLRenderer implements GLEventListener {
         gl.glVertex3f(0.5f, -0.5f, -0.5f); // Bottom Right   
         gl.glEnd();
         gl.glFlush();
+    }
+    
+    private void cilindro() {
+        
+    }
+    
+    private void conde() {
+        
     }
   
     @Override

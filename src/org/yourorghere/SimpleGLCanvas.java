@@ -193,34 +193,42 @@ public class SimpleGLCanvas extends JFrame {
         if (piramideObj.isSelected() == true && cuboObj.isSelected() == true) {
             // Criar piramide e cubo
             typeForm = 5;
+            if(rotacao.isSelected()) {
+               // ROTAÇÃO
+                typeTransform = 1;
+            }else if (translacao.isSelected()){
+                // TRANSLAÇÃO
+                typeTransform = 0;
+            }
+            System.out.println("Pirâmide e CUBO");
         }
         
-        if(piramideObj.isSelected() == true && coneObj.isSelected() == true) {
+        else if(piramideObj.isSelected() == true && coneObj.isSelected() == true) {
             // Criar piramide e cone
             typeForm = 6;
         }
         
-        if(piramideObj.isSelected() == true && cilindroObj.isSelected() == true) {
+        else if(piramideObj.isSelected() == true && cilindroObj.isSelected() == true) {
             // Criar piramide e cilindro
             typeForm = 7;
         }
         
-        if(cuboObj.isSelected() == true && coneObj.isSelected() == true) {
+        else if(cuboObj.isSelected() == true && coneObj.isSelected() == true) {
             // Criar cubo e cone
             typeForm = 8;
         }
         
-        if(cuboObj.isSelected() == true && cilindroObj.isSelected() == true) {
+        else if(cuboObj.isSelected() == true && cilindroObj.isSelected() == true) {
             // Criar cubo e cilindro
             typeForm = 9;
         }
         
-        if(cilindroObj.isSelected() == true && coneObj.isSelected() == true) {
+        else if(cilindroObj.isSelected() == true && coneObj.isSelected() == true) {
             // criar Cilindro  e cone
             typeForm = 10;
         }
         
-        if (piramideObj.isSelected() == true) {
+        else if (piramideObj.isSelected() == true) {
             // criar piramide...
             typeForm = 1;
             if(rotacao.isSelected()) {
@@ -234,7 +242,7 @@ public class SimpleGLCanvas extends JFrame {
             System.out.println("o objeto foi "+ piramideObj.getText());
         }
         
-        if (cuboObj.isSelected()) {
+        else if (cuboObj.isSelected()) {
             typeForm = 2;
             if(rotacao.isSelected()) {
                // ROTAÇÃO
@@ -245,7 +253,7 @@ public class SimpleGLCanvas extends JFrame {
             }
         }
         
-        if (coneObj.isSelected()) {
+        else if (coneObj.isSelected()) {
             // criar piramide...
             typeForm = 3;
             if(rotacao.isSelected()) {
@@ -258,7 +266,7 @@ public class SimpleGLCanvas extends JFrame {
             System.out.println("o objeto foi "+ coneObj.getText());
         }
         
-        if (cilindroObj.isSelected()) {
+        else if (cilindroObj.isSelected()) {
             // criar piramide...
             typeForm = 4;
             if(rotacao.isSelected()) {
